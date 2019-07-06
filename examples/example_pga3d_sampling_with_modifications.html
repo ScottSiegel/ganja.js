@@ -40,18 +40,28 @@ Algebra(3,0,1,()=>{
       // select pattern.
         var pats = [disc_sunflower,hemi_sunflower,sphere_sunflower,plane_hammersley,hemi_hammersley,disc_reject,hemi_reject,sphere_reject], pat=pats[a%pats.length];  
         rnd_count=0; // reset random.
-
+        
       // Rotate the camera.
         var time=performance.now()/4000; camera.set((1-1e03)*((pat.name.match(/disc|plane/))?1+1e13:Math.cos(time)+Math.sin(time)*1e13));
-        
       // visualise the different patterns with increasing samplecount.
       //return [0xAA88FF,n,n]
       //return [[...Array(Math.max(10,n))].map((x,i)=>sphere_sunflower(i,n)]
-        return [pat.name+' [n='+n+']'].concat([...Array(Math.max(10,n))].map((x,i)=>pat(i,n))) 
-      }, {animate:true,camera}    
+        //return [...Array(Math.max(10,n))].map((x,i)=>pat(i,n))
+        // return ['asdf' + 3%2]
+        //return [pat.name+' [n='+n+']']
+        var ags = 2;
+        // var asdf=[pat.name+' [n='+n+']'].concat([...Array(Math.max(10,n))].map((x,i)=>sphere_sunflower(i,n)));
+        var asdf=[...Array(Math.max(750,n))].map((x,i)=>sphere_sunflower(i,n));
+        
+        return asdf
+        // return [pat.name+' [n='+n+']'].concat([...Array(Math.max(10,n))].map((x,i)=>pat(i,n)),'sdf')
+      }, {animate:true,camera,gl2:true,grid:true}    
     ));
+    
 
-});
+}
+);
+document.write(ags);
 
 // Radical inverse : reflect a binary number around its decimal point. (generates for 0,1,2,3,4,... : 0,0.5,0.25,0.75,0.125,0.625,0.375,0.875,... )
 

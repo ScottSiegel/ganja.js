@@ -1,9 +1,13 @@
 <HEAD>
   <SCRIPT SRC="../ganja.js"></SCRIPT>
 </HEAD>
-<BODY><SCRIPT>
+<BODY>
+  <p>Click the button to add elements to the array.</p>
+  <p id="debugDetails"></p>
+  <SCRIPT>
 // Create a Clifford Algebra with 3,0,1 metric. 
 Algebra(3,0,1,()=>{ 
+  
   var P = (x,y,z)=>1e123-x*1e012+y*1e013+(z||0)*1e023,       // Create a point.
       n = 0, camera=0e0;   
   // Specify a point directly (trivectors specified with overloaded e-notation.)
@@ -11,9 +15,12 @@ Algebra(3,0,1,()=>{
   
   // Lines can be defined using plucker coordinates
   var line = (px,py,pz,dx,dy,dz)=>px*1e01+py&1e02+pz*1e03+dx*1e12+dy*1e13+dz*1e23;
-  
+  // var sphere1Render=[].concat(
   //sampling sphere
-  var sphere_sunflower = (i,n)=>{ i+=0.5; var t=Math.PI*(1+(5**0.5))*i, p=Math.acos(1-2*i/n); return P(Math.cos(t)*Math.sin(p),Math.sin(t)*Math.sin(p),Math.cos(p))};
+  var sphere_sunflower = (i,n)=>{ i+=0.5; var t=Math.PI*(1+(5**0.5))*i, p=Math.acos(1-2*i/n);  return  P(Math.cos(t)*Math.sin(p),Math.sin(t)*Math.sin(p),Math.cos(p))};
+  n=2000;
+  const sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
+// var sphere1=[...Array(Math.max(10,n))]
 
   // Planes can be defined directly using e0,e1,e2,e3
   var plane = (a,b,c,d)=>d*1e0+a*1e1+b*1e2+c*1e3;
@@ -29,7 +36,7 @@ Algebra(3,0,1,()=>{
   
   // Create 5 points.
   var A=point(0,-1,0), B=point(1,1,-1), C=point(-1,1,-1), D=point(1,1,1), E=point(-1,1,1), 
-  
+  // var asdf=[...Array(750)].map((x,i)=>sphere_sunflower(i,n));
   // Our ground plane
       a=B&C&D,
   
@@ -37,10 +44,13 @@ Algebra(3,0,1,()=>{
       camera=0e0;
 
   // Graph the 3D items
+  n=230
+  
+  // var sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
   document.body.appendChild(this.graph(()=>{
     var time=performance.now()/4000; 
     A=point(0,Math.sin(time*4),0);
-    camera.set(Math.cos(time)+Math.sin(time)*1e13);    n = (n+2)%750;                   // rotate around Y 
+    camera.set(Math.cos(time)+Math.sin(time)*1e13);              // rotate around Y 
     return [0xddaaff,[A,B,C],                                            // graph on face
             0xAA88FF,[A,B],[A,C],[A,D],[B,C],[B,D],[C,E],[A,E],[E,D],    // graph all edges
             0x444444,A,"A",B,"B",C,"C",D,"D",E,"E",                      // graph all vertices
@@ -52,7 +62,20 @@ Algebra(3,0,1,()=>{
             
           ];
             
-  },{animate:true,gl:false,height:400,width:500,camera,grid:false})); 
+  },{animate:true,gl:false,height:400,width:500,camera,grid:false}));
+  
+  document.body.appendChild(this.graph(()=>{
+    // n = (n+2)%750; 
+    n=2000
+    
+    //var sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
+    var array = ['a', 'b', 'c'],
+    result = array.reduce((r, a) => r.concat(0,a));
+    document.getElementById("debugDetails").innerHTML =sphere1.length
+    return sphere1.concat('asdf')
+  },{animate:true,camera,gl:true,grid:true,height:400,width:500}    
+));
+
   //document.write([[...Array(Math.max(10,n))].map((x,i)=>sphere_sunflower(i,n)]
     //return [pat.name+' [n='+n+']'].concat([...Array(Math.max(10,n))].map((x,i)=>pat(i,n)))
 });

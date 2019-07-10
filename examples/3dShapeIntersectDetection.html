@@ -1,0 +1,131 @@
+< HEAD>
+  <SCRIPT SRC="https://enkimute.github.io/ganja.js/ganja.js"></SCRIPT>
+</HEAD>
+<BODY><SCRIPT>
+// Create a Clifford Algebra with 4,1 metric for 3D CGA.
+Algebra(4,1,()=>{
+
+// We start by defining a null basis, and upcasting for points
+  var ni = 1e4+1e5, no = .5e5-.5e4, nino = ni^no;
+  var up = (x)=> no + x + .5*x*x*ni;
+//document.write(this.describe());
+// Next we'll define some objects.
+
+var p1 = up(1e1+.5e2), p2 = up(1e2-.5e3);
+
+// The distance between two points.
+var d = (a,b)=>((a<<b).Length*2)**.5;
+
+// The duality operator can be used to produce a sphere from a point.
+var s = ()=>!(p1 - .3**2*.5*ni);
+
+// Planes also have a direct dual representation. (but start from vector not point)
+var p = ()=>!(d(p2,no)*ni + (p2^nino*nino).Normalized);
+
+// You can use the regressive product to calculate intersections..
+var c = ()=>s&p;
+
+  var //p  = up((1e1+1e2+1e3).Normalized),    // point
+      p  = up(1e2).Normalized,
+      testpoint1 = up(1e1),
+      S  = ()=>!(p-.5*ni),                 // main dual sphere around point (interactive)
+      S2 = !(up(-1.4e1)-.125*ni),     // left dual sphere
+
+      C  = !(up(1.4e1)-.125*ni)&!(1e3),    // right circle
+      L  = up(.9e2)^up(.9e2-1e1)^ni,       // top line
+      P  = !(1e2-.9*ni),                   // bottom dual plane
+      P2 = !(1e1+1.7*ni);                   // right dual plane
+  var project_point_on_round            = (point,sphere)=>~point^ni<<sphere<<sphere,
+      project_point_on_flat             = (point,plane)=>up(-point<<plane<<plane^nino*nino),
+      plane_through_point_tangent_to_x  = (point,x)=>point^ni<<x*point^ni;
+  var circum = ()=> (p^ni^no)
+
+  //1e1+p>>ni;
+  //*(no<<S<<S)
+  var radius= () => exp(.2)^p^exp(.2);
+/*
+0x00008800, ()=>project_point_on_round(p,S), "p on S",    // point on sphere
+0x000000FF, ()=>project_point_on_round(~p,C), "p on C",   // point on circle
+0x00888800, ()=>project_point_on_flat(p,P),   "p on P",   // point on plane
+0x00008888, ()=>project_point_on_flat(~p,L),  "p on L",   // point on line
+0xc0FF0000, ()=>plane_through_point_tangent_to_x(p,S),    // plane through p tangent to S2
+0xc000FF00, ()=>plane_through_point_tangent_to_x(p,P),    // plane through p tangent to P
+*/
+//document.writeln()
+// The intersections of the big sphere with the other 4 objects.
+  var C1 = ()=>S&P, C2 = ()=>S&L, C3 = ()=>S&S2, C4 = ()=>S&C, C5 = ()=>C&P2;
+  var S5  = ()=>(p-.5*ni);
+  //var SCenter =()=>.000000000000000111e1-.000000000001*p;
+  //var SCenter =()=>project_point_on_round(p,S2);    // point on sphere
+  var SCenter = ()=>up(0)
+  var ei = 1e4-1e3, eo = 0.5*(1e4+1e3),
+      point = (x,y)=>eo + x*1e1 + y*1e2 + 0.5*(x*x+y*y)*ei;
+
+// Rotator, Translator
+  var translate = (v)=>(1-.5*v^ei),
+      rotate    = (P,a)=>Math.cos(a/2) - Math.sin(a/2)*(1e12-P<<1e12^ei);
+
+      var tr = ()=>translate( Math.sin(performance.now()/1000)*1e1 ),
+          ro = ()=>rotate(p1,performance.now()/1000)*tr,
+          //S2 = ()=>tr>>>point( 0, 0 ),
+          p2 = ()=>ro>>>(point( 0.75, 0 ));
+// For line meet plane its a bit more involved.
+  var newPoint=() => p;
+  var C7 = ()=>S&circum;
+
+    // Next we'll define 2 points
+      var p12 = up(1e1+.5e2), p2 = up(1e2-.5e3);
+
+    // The distance between two points.
+      var d1 = (a,b)=>((a<<b).Length*2)**.5;
+
+    // The duality operator can be used to produce a sphere from a point.
+      var s1 = ()=>!(p12 - .3**2*.5*ni);
+
+    // Planes also have a direct dual representation. (but start from vector not point)
+      var p123= ()=>!(d(p2,no)*ni + (p12^nino*nino).Normalized);
+
+    // You can use the regressive product to calculate intersections..
+      var c = ()=>s&p;
+  //var lp = up(nino<<(P2&L^no));
+  var lp = up(nino<<(P2&L^no));
+// Graph the items. (hex numbers are html5 colors, two extra first bytes = alpha)
+//0x00FF0000
+  var newp= () =>project_point_on_round(SCenter,S);
+  document.body.appendChild(this.graph(
+    //document.write(ni);
+      [
+    	0x00FF99 , circum, 'center',
+      //0x888800,,'projPoint',
+      0x00FF0000, p, "s1",             // point
+      0xFF00FF,lp,"l&p",               // line intersect plane
+      0x0000FF,C1,"s&p",               // sphere meet plane
+    0x888800,C2,"s&l",               // sphere meet line
+      0x0088FF,C3,"s&s",               // sphere meet sphere
+    0x008800,C4,"s&c",               // sphere meet circle
+    0x880000,C5,"c&p",               // circle meet sphere
+      0,L,
+      0x880000,C,'circ',                         // line and circle
+     0xE0008800, P, P2,               // plane
+     0xE0FFFFFF, S, "s4",
+     S2,
+     //()=>S2          // spheres
+     // var t=performance.now()/1234,
+     //p.e1 = Math.cos(t) + Math.sin(t)*1e13,
+  ],
+//  {conformal:true,gl:true,up:upviz, h:Math.PI/2, animate:1}
+{conformal:true,gl:true,height:400,animate:false,grid:true}
+));
+
+/*
+  var camera=0e1+1;
+  document.body.appendChild(this.graph(()=>{
+    var t=performance.now()/1234;
+    p.e1 = () => Math.cos(t) + Math.sin(t)*1e13  );
+    return elements;
+  },{conformal:true,gl:1,animate:1}));
+*/
+
+});
+
+</SCRIPT></BODY>

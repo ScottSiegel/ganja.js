@@ -1,13 +1,27 @@
 <HEAD>
   <SCRIPT SRC="../ganja.js"></SCRIPT>
+  <SCRIPT SRC="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.0.4/chroma.min.js"></SCRIPT>
 </HEAD>
 <BODY>
   <p>Click the button to add elements to the array.</p>
   <p id="debugDetails"></p>
+  <!-- <p id="debugDetails2"></p> -->
   <SCRIPT>
+
 // Create a Clifford Algebra with 3,0,1 metric. 
 Algebra(3,0,1,()=>{ 
-  
+    var array1 = [1, 2, 3, 4, 5];
+    var array2 = ['a', 890, 'c', 'd', 'e'];
+
+// var arrayCombined = array1.map((v, i) => {return  array2[i],v;
+//     });
+// var arrayCombined = array1.map((v, i) => {return  [array2[i],v];});
+// var arrayCombined = array1.map((v, i) => {return  [v].concat(array2[i]);});
+// var arrayCombined= array1.reduce((r, a,i,array1) => r.concat(a, array2[i]),[]);
+// var result = [...Object.values(sphere1)].reduce((r, a) => r.concat(a, 0x44aaff),[0x44aaff]);
+// result.pop();
+
+  // document.getElementById("debugDetails").innerHTML =arrayCombined[1]; 
   var P = (x,y,z)=>1e123-x*1e012+y*1e013+(z||0)*1e023,       // Create a point.
       n = 0, camera=0e0;   
   // Specify a point directly (trivectors specified with overloaded e-notation.)
@@ -18,8 +32,10 @@ Algebra(3,0,1,()=>{
   // var sphere1Render=[].concat(
   //sampling sphere
   var sphere_sunflower = (i,n)=>{ i+=0.5; var t=Math.PI*(1+(5**0.5))*i, p=Math.acos(1-2*i/n);  return  P(Math.cos(t)*Math.sin(p),Math.sin(t)*Math.sin(p),Math.cos(p))};
-  n=2000;
+  n=20;
   const sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
+  var sphere1colors = chroma.scale(['#fafa6e','#2A4858'])
+  .mode('lch').colors(n,'num');
 // var sphere1=[...Array(Math.max(10,n))]
 
   // Planes can be defined directly using e0,e1,e2,e3
@@ -44,14 +60,17 @@ Algebra(3,0,1,()=>{
       camera=0e0;
 
   // Graph the 3D items
-  n=230
+
   
   // var sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
   document.body.appendChild(this.graph(()=>{
     var time=performance.now()/4000; 
     A=point(0,Math.sin(time*4),0);
     camera.set(Math.cos(time)+Math.sin(time)*1e13);              // rotate around Y 
-    return [0xddaaff,[A,B,C],                                            // graph on face
+    
+    var test =  chroma('orange').darken(.1).num();
+    // var test=chroma(testhex).num()
+    var testformat=[test,[A,B,C],                                            // graph on face
             0xAA88FF,[A,B],[A,C],[A,D],[B,C],[B,D],[C,E],[A,E],[E,D],    // graph all edges
             0x444444,A,"A",B,"B",C,"C",D,"D",E,"E",                      // graph all vertices
             0xFF8888,[A,E],dist_pp(A,E).toFixed(2),                      // distance A to E
@@ -61,19 +80,28 @@ Algebra(3,0,1,()=>{
             0xff44ff,[A,2*A+D,2*A+B],(angle_ll(A&D,B&A).toFixed(2))+"°"
             
           ];
+           // document.getElementById("debugDetails").innerHTML =testformat[0];
+    // document.getElementById("debugDetails").innerHTML =test;
+    return testformat
+    
             
   },{animate:true,gl:false,height:400,width:500,camera,grid:false}));
   
   document.body.appendChild(this.graph(()=>{
     // n = (n+2)%750; 
-    n=2000
     
-    //var sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
-    var array = ['a', 'b', 'c'],
-    result = array.reduce((r, a) => r.concat(0,a));
-    document.getElementById("debugDetails").innerHTML =sphere1.length
-    return sphere1.concat('asdf')
-  },{animate:true,camera,gl:true,grid:true,height:400,width:500}    
+    // var sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
+    // var array = ['a', 'b', 'c'],
+    // var result = [...Object.values(sphere1)].reduce((r, a) => r.concat(a, 0x44aaff),[0x44aaff]);
+    // result.pop();
+    // var result = [...Object.values(sphere1)].reduce((r, a) => r.concat(a, 0x44aaff),[0x44aaff]);
+    // result.pop();
+    var result= array1.reduce((r, a,i,array1) => r.concat(a, array2[i]),[]);
+    // var result = sphere1colors.map((v, i) => {return  v,sphere1[i] });
+
+    return sphere1
+    
+  },{animate:true,camera,webgl:true,grid:true,height:400,width:500}    
 ));
 
   //document.write([[...Array(Math.max(10,n))].map((x,i)=>sphere_sunflower(i,n)]

@@ -1,28 +1,98 @@
 <HEAD>
-  <SCRIPT SRC="https://unpkg.com/ganja.js"></SCRIPT>
-  <SCRIPT SRC="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.0.4/chroma.min.js"></SCRIPT>
+  <SCRIPT SRC="../ganja.js"></SCRIPT>
+  <SCRIPT SRC="../chroma.min.js"></SCRIPT>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../nouislider.min.css">
+  <script src="../nouislider.min.js"></script>
+  <script src="../wNumb.js"></script>
+  <div class="Slider-Pane">
+  <div id="slider1" class="sliderA"></div>
+  <div id="slider2" class="sliderB"></div>
+  <div id="slider3" class="sliderC"></div>
+  <div id="slider4" class="sliderD"></div>
+  <div id="slider5" class="sliderE"></div>
+  </div>
+  <!--
+  <p class="textA">Control Element A</p>
+  <p class="textB">Control Element B</p>
+  <p class="textC">Control Element C</p>
+  <p class="textD">Control Element D</p>
+  <p class="textE">Control Element E</p> -->
+  <style>
+div.sliderA {
+  position: absolute;
+  left: 70px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderB {
+  position: absolute;
+  left: 270px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderC {
+  position: absolute;
+  left: 470px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderD {
+  position: absolute;
+  left: 670px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderE {
+  position: absolute;
+  left: 870px;
+  bottom: 50px;
+  height: 250px;
+}
+
+p.textA {
+  position: absolute;
+  bottom: 300px;
+  left: 10px;
+  font-weight: bold;
+  font-size:120%;
+} 
+p.textB {
+  position: absolute;
+  bottom: 300px;
+  left: 210px;
+  font-weight: bold;
+  font-size:120%;
+}
+p.textC {
+  position: absolute;
+  bottom: 300px;
+  left: 410px;
+  font-weight: bold;
+  font-size:120%;
+} 
+p.textD {
+  position: absolute;
+  bottom: 300px;
+  left: 610px;
+  font-weight: bold;
+  font-size:120%;
+}
+p.textE {
+  position: absolute;
+  bottom: 300px;
+  left: 810px;
+  font-weight: bold;
+  font-size:120%;
+} 
+</style>
 </HEAD>
 <BODY>
   <!-- <p>Click the button to add elements to the array.</p> -->
   <p id="debugDetails"></p>
-  <!-- <p id="debugDetails2"></p> -->
   <SCRIPT>
-
 // Create a Clifford Algebra with 3,0,1 metric. 
 Algebra(3,0,1,()=>{ 
-    var array1 = [1, 2, 3, 4, 5];
-    var array2 = ['a34', 890, 'c', 'd', 'e'];
-
-// var arrayCombined = array1.map((v, i) => {return  array2[i],v;
-//     });
-// var arrayCombined = array1.map((v, i) => {return  [array2[i],v];});
-// var arrayCombined = array1.map((v, i) => {return  [v].concat(array2[i]);});
-var arrayCombined= array1.reduce((r, a,i,array1) => r.concat(a, array2[i]),[]);
-// var result = [...Object.values(sphere1)].reduce((r, a) => r.concat(a, 0x44aaff),[0x44aaff]);
-// result.pop();
-
-  // document.getElementById("debugDetails").innerHTML =arrayCombined[1]; 
- 
   // Specify a point directly (trivectors specified with overloaded e-notation.)
   var Point = (x,y,z)=>-1e123+x*1e012+y*1e013+z*1e023,
       n = 0, camera=0e0; 
@@ -57,8 +127,7 @@ var arrayCombined= array1.reduce((r, a,i,array1) => r.concat(a, array2[i]),[]);
     var origPoint=Point(0,0,0),
       xaxisPosPoint=Point(1,0,0),
       yaxisPosPoint=Point(0,1,0),
-      zaxisPosPoint=Point(0,0,1),
-      asdf=plane(0,1,1,0);
+      zaxisPosPoint=Point(0,0,1);
     	
     // result.pop();
     // var result= array1.reduce((r, a,i,array1) => r.concat(a, array2[i]),[]);
@@ -66,10 +135,31 @@ var arrayCombined= array1.reduce((r, a,i,array1) => r.concat(a, array2[i]),[]);
 
      document.getElementById("debugDetails").innerHTML =zaxisPosPoint;
      //...sphere1Result
-    return [...sphere1Result,0x000000,origPoint,'origin',0xFF0000,xaxisPosPoint,'x-axis',0x00A400,yaxisPosPoint,'y-axis',0x568CE3,zaxisPosPoint,'z-axis',asdf]
+    return [...sphere1Result,0x000000,origPoint,'origin',0xFF0000,xaxisPosPoint,'x-axis',0x00A400,yaxisPosPoint,'y-axis',0x568CE3,zaxisPosPoint,'z-axis']
     
   },{camera,animate:true,gl:true,grid:true,height:400,width:500}    
 ));
 });
+/*
+var slider1 = document.getElementById('slider1');
+var slider2 = document.getElementById('slider2');
+var slider3 = document.getElementById('slider3');
+var slider4 = document.getElementById('slider4');
+var slider5 = document.getElementById('slider5');
 
-</SCRIPT></BODY>
+var CreateSlider = (sliderName) => {  noUiSlider.create(sliderName, {
+    start: 50,direction: 'rtl',orientation: 'vertical',
+    tooltips: true,connect: [true,true],
+    range: {'min': 0,'max': 100},behaviour: 'tap',
+    pips: {mode: 'positions',values: [0, 25, 50, 75, 100],
+      density: 5,format: wNumb({decimals:1})}});  
+    }
+    
+CreateSlider(slider1)
+CreateSlider(slider2)
+CreateSlider(slider3)
+CreateSlider(slider4)
+CreateSlider(slider5)
+*/
+</SCRIPT>
+</BODY>

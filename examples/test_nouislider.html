@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+div.sliderA {
+  position: absolute;
+  left: 70px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderB {
+  position: absolute;
+  left: 270px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderC {
+  position: absolute;
+  left: 470px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderD {
+  position: absolute;
+  left: 670px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderE {
+  position: absolute;
+  left: 870px;
+  bottom: 50px;
+  height: 250px;
+}
+
+p.textA {
+  position: absolute;
+  bottom: 300px;
+  left: 10px;
+  font-weight: bold;
+  font-size:120%;
+} 
+p.textB {
+  position: absolute;
+  bottom: 300px;
+  left: 210px;
+  font-weight: bold;
+  font-size:120%;
+}
+p.textC {
+  position: absolute;
+  bottom: 300px;
+  left: 410px;
+  font-weight: bold;
+  font-size:120%;
+} 
+p.textD {
+  position: absolute;
+  bottom: 300px;
+  left: 610px;
+  font-weight: bold;
+  font-size:120%;
+}
+p.textE {
+  position: absolute;
+  bottom: 300px;
+  left: 810px;
+  font-weight: bold;
+  font-size:120%;
+} 
+</style>
+  <link rel="stylesheet" href="../nouislider.min.css">
+  <script src="../nouislider.min.js"></script>
+  <script src="../wNumb.js"></script>
+  <div class="Slider-Pane">
+  <div id="slider1" class="sliderA"></div>
+  <div id="slider2" class="sliderB"></div>
+  <div id="slider3" class="sliderC"></div>
+  <div id="slider4" class="sliderD"></div>
+  <div id="slider5" class="sliderE"></div>
+  </div>
+  <p class="textA" style="min-width: 250px">Control Element A</p>
+  <p class="textB" style="min-width: 250px">Control Element B</p>
+  <p class="textC">Control Element C</p>
+  <p class="textD">Control Element D</p>
+  <p class="textE" style="min-width: 250px">Control Element E</p>
+  </head>
+  <body>
+  <SCRIPT>
+  // document.getElementById("asdf").style.padding = "200px";  
+  var slider1 = document.getElementById('slider1');
+  var slider2 = document.getElementById('slider2');
+  var slider3 = document.getElementById('slider3');
+  var slider4 = document.getElementById('slider4');
+  var slider5 = document.getElementById('slider5');
+  
+  var CreateSlider = (sliderName) => {  noUiSlider.create(sliderName, {
+      start: 50,direction: 'rtl',orientation: 'vertical',
+      tooltips: true,connect: [true,true],
+      range: {'min': 0,'max': 100},behaviour: 'tap',
+      pips: {mode: 'positions',values: [0, 25, 50, 75, 100],
+        density: 5,format: wNumb({decimals:1})}});  
+      }
+      
+  CreateSlider(slider1)
+  CreateSlider(slider2)
+  CreateSlider(slider3)
+  CreateSlider(slider4)
+  CreateSlider(slider5)
+  </SCRIPT>  
+      
+      </body>  
+</html>

@@ -1,5 +1,6 @@
 <HEAD>
   <SCRIPT SRC="../ganja.js"></SCRIPT>
+  <p id="debugDetails"></p>
 </HEAD>
 <BODY><SCRIPT>
 // Create a Clifford Algebra with 3,0,1 metric. 
@@ -28,9 +29,9 @@ Algebra(3,0,1,()=>{
 
   // The function we are graphing. (0.5*x^3 - 0.5*y^2 + 1) - feel free to change !
   var f = (x,y,time)=>0.5*Math.sin(time*5)*x*x*x-0.5*Math.cos(time)*y*y+1;
-  
   // Graph the 3D items
   document.body.appendChild(this.graph(()=>{
+      
     // A time parameter, and our camera rotation.
     var time=performance.now()/4000;    
     camera.set(Math.cos(time)+Math.sin(time)*1e13);
@@ -40,7 +41,7 @@ Algebra(3,0,1,()=>{
     // Evaluate the function for current x,y and time. Add in e01 and e02 to x and y respectively to
     // enable the automatic differentiation. (the 1 comes from differentiating 'x' or 'y' ) 
        var r = f(x + 1e01, y + 1e02, time);
-    
+    document.getElementById("debugDetails").innerHTML =[Object.getOwnPropertyDescriptors(r),r.e01];
     // r.s   = f(x,y,t)    = the function value
     // r.e01 = f'x(x,y,t)  = how function value changes when just x changes
     // r.e02 = f'y(x,y,t)  = how function value changes when just y changes
@@ -51,7 +52,7 @@ Algebra(3,0,1,()=>{
        dy[i][1].set(points[i]+0.15e013*r.e02+0.15e023);      // update edge endpoint for f/dy
     }     
     return render;
-  },{animate:true,camera})); 
+  },{animate:true,camera,grid:true,gl:true,height:500,width:500})); 
   
 });
 </SCRIPT></BODY>

@@ -1,0 +1,159 @@
+<HEAD>
+  <SCRIPT SRC="../ganja.js"></SCRIPT>
+  <SCRIPT SRC="../chroma.min.js"></SCRIPT>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../nouislider.min.css">
+  <script src="../nouislider.min.js"></script>
+  <script src="../wNumb.js"></script>
+  <div class="Slider-Pane">
+  <div id="slider1" class="sliderA"></div>
+  <div id="slider2" class="sliderB"></div>
+  <div id="slider3" class="sliderC"></div>
+  <div id="slider4" class="sliderD"></div>
+  <div id="slider5" class="sliderE"></div>
+  </div>
+  <!--
+  <p class="textA">Control Element A</p>
+  <p class="textB">Control Element B</p>
+  <p class="textC">Control Element C</p>
+  <p class="textD">Control Element D</p>
+  <p class="textE">Control Element E</p> -->
+  <style>
+div.sliderA {
+  position: absolute;
+  left: 70px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderB {
+  position: absolute;
+  left: 270px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderC {
+  position: absolute;
+  left: 470px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderD {
+  position: absolute;
+  left: 670px;
+  bottom: 50px;
+  height: 250px;
+}
+div.sliderE {
+  position: absolute;
+  left: 870px;
+  bottom: 50px;
+  height: 250px;
+}
+
+p.textA {
+  position: absolute;
+  bottom: 300px;
+  left: 10px;
+  font-weight: bold;
+  font-size:120%;
+} 
+p.textB {
+  position: absolute;
+  bottom: 300px;
+  left: 210px;
+  font-weight: bold;
+  font-size:120%;
+}
+p.textC {
+  position: absolute;
+  bottom: 300px;
+  left: 410px;
+  font-weight: bold;
+  font-size:120%;
+} 
+p.textD {
+  position: absolute;
+  bottom: 300px;
+  left: 610px;
+  font-weight: bold;
+  font-size:120%;
+}
+p.textE {
+  position: absolute;
+  bottom: 300px;
+  left: 810px;
+  font-weight: bold;
+  font-size:120%;
+} 
+</style>
+</HEAD>
+<BODY>
+<p>Click the button to add elements to the array.</p>
+  <p id="debugDetails"></p>
+  <SCRIPT>
+// Create a Clifford Algebra with 3,0,1 metric. 
+Algebra(3,0,1,()=>{ 
+  // Specify a point directly (trivectors specified with overloaded e-notation.)
+  var Point = (x,y,z)=>-1e123+x*1e012+y*1e013+z*1e023,
+      n = 0, camera=0e0; 
+
+  
+  // Lines can be defined using plucker coordinates
+  var line = (px,py,pz,dx,dy,dz)=>px*1e01+py&1e02+pz*1e03+dx*1e12+dy*1e13+dz*1e23;
+  // var sphere1Render=[].concat(
+  //sampling sphere
+  var sphere_sunflower = (i,n)=>{ i+=0.5; var t=Math.PI*(1+(5**0.5))*i, p=Math.acos(1-2*i/n);  return  Point(Math.cos(t)*Math.sin(p),Math.sin(t)*Math.sin(p),Math.cos(p))};
+  n=1000;
+  var sphere1=[...Array(n)].map((x,i)=>sphere_sunflower(i,n));
+  var sphere1Colors = chroma.scale(['#fafa6e','#2A4858'])
+  .mode('lch').colors(n,'num');
+  var sphere1Result= sphere1Colors.reduce((r, a,i,sphere1Colors) => r.concat(a, sphere1[i]),[]);
+
+  var plane = (a,b,c,d)=>d*1e0+a*1e1+b*1e2+c*1e3;
+      camera=0e0;
+
+  
+  document.body.appendChild(this.graph(()=>{
+    var time=performance.now()/4000; 
+    camera.set(Math.cos(time)+Math.sin(time)*1e13)
+    var tempPoint= sphere1Result[1];
+    tempPoint=tempPoint-20;
+    var origPoint=Point(0,0,0),
+      xaxisPosPoint=Point(1,0,0),
+      yaxisPosPoint=Point(0,1,0),
+      zaxisPosPoint=Point(0,0,1);
+    	
+    // result.pop();
+    // var result= array1.reduce((r, a,i,array1) => r.concat(a, array2[i]),[]);
+    // var result = sphere1colors.map((v, i) => {return  v,sphere1[i] });
+
+     document.getElementById("debugDetails").innerHTML =zaxisPosPoint;
+     //...sphere1Result
+    return [...sphere1Result,0x000000,origPoint,'origin',0xFF0000,xaxisPosPoint,'x-axis',0x00A400,yaxisPosPoint,'y-axis',0x568CE3,zaxisPosPoint,'z-axis']
+    
+  },{camera,animate:true,gl:true,grid:true,height:400,width:500}    
+));
+});
+
+var slider1 = document.getElementById('slider1');
+var slider2 = document.getElementById('slider2');
+var slider3 = document.getElementById('slider3');
+var slider4 = document.getElementById('slider4');
+var slider5 = document.getElementById('slider5');
+
+var CreateSlider = (sliderName) => {  noUiSlider.create(sliderName, {
+    start: 50,direction: 'rtl',orientation: 'vertical',
+    tooltips: true,connect: [true,true],
+    range: {'min': 0,'max': 100},behaviour: 'tap',
+    pips: {mode: 'positions',values: [0, 25, 50, 75, 100],
+      density: 5,format: wNumb({decimals:1})}});  
+    }
+    
+CreateSlider(slider1)
+CreateSlider(slider2)
+CreateSlider(slider3)
+CreateSlider(slider4)
+CreateSlider(slider5)
+
+</SCRIPT>
+</BODY>

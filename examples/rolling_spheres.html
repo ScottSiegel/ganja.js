@@ -1,3 +1,4 @@
+<html>
 <HEAD>
   <SCRIPT SRC="../ganja.js"></SCRIPT>
   <SCRIPT SRC="../chroma.min.js"></SCRIPT>
@@ -11,6 +12,10 @@
   <div id="slider3" class="sliderC"></div>
   <div id="slider4" class="sliderD"></div>
   <div id="slider5" class="sliderE"></div>
+  <div id="slider6" class="sliderF"></div>
+  <div id="slider7" class="sliderG"></div>
+  <div id="slider8" class="sliderH"></div>
+  <div id="slider9" class="sliderI"></div>
   </div>
   
   <p class="textA" id="textS1"></p>
@@ -18,195 +23,309 @@
   <p class="textC" id="textS3"></p>
   <p class="textD" id="textS4"></p>
   <p class="textE" id="textS5"></p>
+  <p class="textF" id="textS6"></p>
+  <p class="textG" id="textS7"></p>
+  <p class="textH" id="textS8"></p>
+  <p class="textI" id="textS9"></p>
   <p id='animatedGraph'></p> 
   <p class="debugText1" id="debugDetails1"></p>
   <p class="debugText2" id="debugDetails2"></p>
   
-  <style>
-div.sliderA {
-  position: absolute;
-  left: 10%;
-  bottom: 5%;
-  height: 30%;
-}
-div.sliderB {
-  position: absolute;
-  left: 25%;
-  bottom: 5%;
-  height: 30%;
-}
-div.sliderC {
-  position: absolute;
-  left: 40%;
-  bottom: 5%;
-  height: 30%;
-}
-div.sliderD {
-  position: absolute;
-  left: 55%;
-  bottom: 5%;
-  height: 30%;
-}
-div.sliderE {
-  position: absolute;
-  left: 70%;
-  bottom: 5%;
-  height: 30%;
-}
+  <STYLE>
+    div.sliderA {
+      position: absolute;
+      left: 5%;
+      bottom: 5%;
+      height: 30%;
+      
+    }
+    div.sliderB {
+      position: absolute;
+      left: 16%;
+      bottom: 5%;
+      height: 30%;
+      
+    }
+    div.sliderC {
+      position: absolute;
+      left: 27%;
+      bottom: 5%;
+      height: 30%;
+    }
+    div.sliderD {
+      position: absolute;
+      left: 38%;
+      bottom: 5%;
+      height: 30%;
+    }
+    div.sliderE {
+      position: absolute;
+      left: 49%;
+      bottom: 5%;
+      height: 30%;
+    }
 
-p.textA {
-  position: absolute;
-  left: 7%;
-  bottom: 36%;
-  font-weight: bold;
-} 
-p.textB {
-  position: absolute;
-  bottom: 36%;
-  left: 22%;
-  font-weight: bold;
+    div.sliderF {
+      position: absolute;
+      left: 60%;
+      bottom: 5%;
+      height: 30%;
+    }
+    div.sliderG {
+      position: absolute;
+      left: 71%;
+      bottom: 5%;
+      height: 30%;
+    }
+    div.sliderH {
+      position: absolute;
+      left: 82%;
+      bottom: 5%;
+      height: 30%;
+    }
+    div.sliderI {
+      position: absolute;
+      left: 93%;
+      bottom: 5%;
+      height: 30%;
+    }
+
+
+
+    p.textA {
+      position: absolute;
+      left: 1%;
+      bottom: 36%;
+      font-weight: bold;
+    } 
+
+
+    p.textB {
+      position: absolute;
+      left: 13%;
+      bottom: 36%;
+      font-weight: bold;
+    }
+    p.textC {
+      position: absolute;
+      left: 24%;
+      bottom: 36%;
+      font-weight: bold;
+    } 
+    p.textD {
+      position: absolute;
+      bottom: 36%;
+      left: 35%;
+      font-weight: bold;
+    }
+    p.textE {
+      position: absolute;
+      bottom: 36%;
+      left: 46%;
+      font-weight: bold;
+    }
+    p.textF {
+      position: absolute;
+      bottom: 36%;
+      left: 57%;
+      font-weight: bold;
+    }
+    p.textG {
+      position: absolute;
+      bottom: 36%;
+      left: 68%;
+      font-weight: bold;
+    }
+    p.textH {
+      position: absolute;
+      bottom: 36%;
+      left: 79%;
+      font-weight: bold;
+    }
+    p.textI {
+      position: absolute;
+      bottom: 36%;
+      left: 90%;
+      font-weight: bold;
+    }
+    p.debugText1 {
+      position: absolute;
+      top: 2%;
+      left: 46%;
+      font-weight: bold; 
+      font-size:140%; 
+    } 
+    p.debugText2 {
+      position: absolute;
+      top: 5%;
+      left: 46%;
+      font-weight: bold;
+      font-size:140%;  
+    } 
+    .noUi-target {
+    font-size: 120%;
+    font-weight: 900;
+    font: black;
+    
 }
-p.textC {
-  position: absolute;
-  bottom: 36%;
-  left: 37%;
-  font-weight: bold;
-} 
-p.textD {
-  position: absolute;
-  bottom: 36%;
-  left: 52%;
-  font-weight: bold;
-}
-p.textE {
-  position: absolute;
-  bottom: 36%;
-  left: 67%;
-  font-weight: bold;
-}
-p.debugText1 {
-  position: absolute;
-  top: 2%;
-  left: 46%;
-  font-weight: bold; 
-  font-size:140%; 
-} 
-p.debugText2 {
-  position: absolute;
-  top: 5%;
-  left: 46%;
-  font-weight: bold;
-  font-size:140%;  
-} 
-</style>
+  </style>
 
 </HEAD>
 <BODY>
-
-
-<script>
-var slider1 = document.getElementById('slider1');
-var slider2 = document.getElementById('slider2');
-var slider3 = document.getElementById('slider3');
-var slider4 = document.getElementById('slider4');
-// var slider5 = document.getElementById('slider5');
-var CreateSlider = (sliderName,startnum,sliderTextID,sliderTitle) => {  noUiSlider.create(sliderName, {animate: true,
-    start: Number(startnum),direction: 'rtl',orientation: 'vertical',
-    tooltips: wNumb({decimals:1,suffix: '%'}),connect: [true,false],
-    range: {'min': 0,'max': 100},behaviour: 'drag',
-    pips: {mode: 'positions',values: [0, 25, 50, 75, 100],
-      density: 5,format: wNumb({decimals:1,suffix: '%'})}});
-      document.getElementById(String(sliderTextID)).innerHTML =String(sliderTitle);  
-    }
-    
-    var CreateSliderBounds = (sliderName,startnum,sliderTextID,sliderTitle) => {  noUiSlider.create(sliderName, {animate: true,
-        start: Number(startnum),direction: 'rtl',orientation: 'vertical',
-        tooltips: wNumb({decimals:2}),connect: [true,true],
-        range: {'min': -2,'max': 2},behaviour: 'drag',
-        pips: {mode: 'positions',values: [0, 25, 50, 75, 100],
-          density: 5,format: wNumb({decimals:2,})}});
-          document.getElementById(String(sliderTextID)).innerHTML =String(sliderTitle);  
-        }
-    
-CreateSlider(slider1,50,"textS1",'Camera Rot Speed')
-CreateSliderBounds(slider2,0,"textS2",'Modify Cam Coord e01')
-CreateSliderBounds(slider3,0,"textS3",'Modify Cam Coord e02')
-CreateSliderBounds(slider4,0,"textS4",'Modify Cam Coord e03')
-// CreateSlider(slider5,0,"textS5")
-
-</script>
-  <SCRIPT>
-// Create a Clifford Algebra with 3,0,1 metric. 
-Algebra(3,0,1,()=>{ 
-  var asdf=this.describe();
-  // Specify a point directly (trivectors specified with overloaded e-notation.)
-  var Point = (x,y,z)=>-1e123+x*1e012+y*1e013+z*1e023,
-      n = 600, camera=0e0;
-  // Lines can be defined using plucker coordinates
-  var Line = (px,py,pz,dx,dy,dz)=>px*1e01+py&1e02+pz*1e03+dx*1e12+dy*1e13+dz*1e23;
-  var Plane = (a,b,c,d)=>d*1e0+a*1e1+b*1e2+c*1e3;
-  
-   var LineFromPoints= (P,Q)=>[P,Q]
-  //sampling sphere
-  var SphereSunflower = (i,n)=>{ i+=0.5; var t=Math.PI*(1+(5**0.5))*i, p=Math.acos(1-2*i/n);  return  Point(Math.cos(t)*Math.sin(p),Math.sin(t)*Math.sin(p),Math.cos(p))};
-  
-  var TransPtsAlongAxis = (x)=>{x.e013=x.e013+2; return x};
-    
-  var sphere1=[...Array(n)].map((x,i)=>SphereSunflower(i,n));
-  
-  
-  var sphere1Colors = chroma.scale(['#fafa6e','#2A4858'])
-  .mode('lch').colors(n,'num');
-  var sphere1Result= sphere1Colors.reduce((r, a,i,sphere1Colors) => r.concat(a, sphere1[i]),[]);
-  
-  var sphere2=[...Array(n)].map((x,i)=>SphereSunflower(i,n)).map((x,i)=>TransPtsAlongAxis(x));
-
-  var sphere2Colors = chroma.scale(['#fa1459','#5900ff'])
-  .mode('lch').colors(n,'num');
-  var sphere2Result= sphere2Colors.reduce((r, a,i,sphere2Colors) => r.concat(a, sphere2[i]),[]);
-  
-  
-  var cameraPOV=0,
-      cameraSetLoc=Math.cos(cameraPOV)+Math.sin(cameraPOV)*1e13,
-      counter=0;
+  <script>
+  var slider1 = document.getElementById('slider1');
+  var slider2 = document.getElementById('slider2');
+  var slider3 = document.getElementById('slider3');
+  var slider4 = document.getElementById('slider4');
+  var slider5 = document.getElementById('slider5');
+  var slider6 = document.getElementById('slider6');
+  var slider7 = document.getElementById('slider7');
+  var slider8 = document.getElementById('slider8');
+  var slider9 = document.getElementById('slider9');
+  var CreateSlider = (sliderName,startnum,sliderTextID,sliderTitle) => {  noUiSlider.create(sliderName, {animate: true,
+      start: Number(startnum),direction: 'rtl',orientation: 'vertical',
+      tooltips: wNumb({decimals:1,suffix: '%'}),connect: [true,false],
+      range: {'min': 0,'max': 100},behaviour: 'drag',
+      pips: {mode: 'positions',values: [0, 25, 50, 75, 100],
+        density: 5,format: wNumb({decimals:1,suffix: '%'})}});
+        document.getElementById(String(sliderTextID)).innerHTML =String(sliderTitle);  
+      }
       
-  var origPoint=Point(0,0,0),
-    xAxisPosPoint=Point(1,0,0),
-    yAxisPosPoint=Point(0,1,0),
-    zAxisPosPoint=Point(0,0,1),
-    testLine=[origPoint,xAxisPosPoint],
-    xAxisLine=LineFromPoints(origPoint,xAxisPosPoint),
-    yAxisLine=LineFromPoints(origPoint,yAxisPosPoint),
-    zAxisLine=LineFromPoints(origPoint,zAxisPosPoint);
-  
-  document.getElementById("animatedGraph").appendChild(this.graph(()=>{
-    counter+=(slider1.noUiSlider.get()/50)**2;
-    cameraPOV=counter/120.0;
-    //*(slider1.noUiSlider.get()/100)
-    cameraSetLoc=Math.cos(cameraPOV)+Math.sin(cameraPOV)*1e13;
-    // var mag=-1;
-    // cameraSetLoc.e13=cameraSetLoc.e13+mag;
-    slider1.noUiSlider.get()/100;
+      var CreateSliderBounds = (sliderName,startnum,sliderTextID,sliderTitle) => {  noUiSlider.create(sliderName, {animate: true,
+          start: Number(startnum),direction: 'rtl',orientation: 'vertical',
+          tooltips: wNumb({decimals:2}),connect: [true,true],
+          range: {'min': -5,'max': 5},behaviour: 'drag',
+          cssPrefix: 'noUi-',
+          pips: {mode: 'positions',values: [0, 25, 50, 75, 100],
+            density: 5,format: wNumb({decimals:2,})}});
+            
+            document.getElementById(String(sliderTextID)).innerHTML =String(sliderTitle);  
+          }
+      
+  CreateSlider(slider1,0,"textS1",'Cam Rotate Around e13')
+  CreateSliderBounds(slider2,0,"textS2",'Camera Coord e01')
+  CreateSliderBounds(slider3,0,"textS3",'Camera Coord e02')
+  CreateSliderBounds(slider4,0,"textS4",'Camera Coord e03')
+  CreateSliderBounds(slider5,0,"textS5",'Camera Coord e12')
+  CreateSliderBounds(slider6,0,"textS6",'Camera Coord e23')
+  CreateSliderBounds(slider7,0,"textS7",'Camera Coord e1')
+  CreateSliderBounds(slider8,0,"textS8",'Camera Coord e2')
+  CreateSliderBounds(slider9,0,"textS9",'Camera Coord e3')
+
+  document.body.style.backgroundColor = "#ffecc2";
+  // Create a Clifford Algebra with 3,0,1 metric. 
+  Algebra(3,0,1,()=>{ 
+    var asdf=this.describe();
+    // Specify a point directly (trivectors specified with overloaded e-notation.)
+    var Point = (x,y,z)=>-1e123+x*1e012+y*1e013+z*1e023,
+        n = 250, camera=0e0;
+    // Lines can be defined using plucker coordinates
+    var Line = (px,py,pz,dx,dy,dz)=>px*1e01+py&1e02+pz*1e03+dx*1e12+dy*1e13+dz*1e23;
+    var Plane = (a,b,c,d)=>d*1e0+a*1e1+b*1e2+c*1e3;
     
-    cameraSetLoc.e01=slider2.noUiSlider.get();
-    cameraSetLoc.e02=slider3.noUiSlider.get();
-    cameraSetLoc.e03=slider4.noUiSlider.get();
-    camera.set(cameraSetLoc)
-     slider1.noUiSlider.on('slide')
-    document.getElementById("debugDetails1").innerHTML ="Camera POV Coords:";
-    document.getElementById("debugDetails2").innerHTML =cameraSetLoc.s.toFixed(2)+' + '+cameraSetLoc.e13.toFixed(2)+'e13'
-      + ' + ' + cameraSetLoc.e01.toFixed(2)+'e01'
-      + ' + ' + cameraSetLoc.e02.toFixed(2)+'e02'
-      + ' + ' + cameraSetLoc.e03.toFixed(2)+'e03';
-
-    return [...sphere1Result.concat(sphere2Result),0x000000,origPoint,'origin',0xFF0000,xAxisPosPoint,'x-axis', xAxisLine,0x0F3BFF,yAxisPosPoint,'y-axis',yAxisLine,0xFF8614,zAxisPosPoint,'z-axis',zAxisLine]
+     var LineFromPoints= (P,Q)=>[P,Q]
+    //sampling sphere
+    var SphereSunflower = (i,n)=>{ i+=0.5; var t=Math.PI*(1+(5**0.5))*i, p=Math.acos(1-2*i/n);  return  Point(Math.cos(t)*Math.sin(p),Math.sin(t)*Math.sin(p),Math.cos(p))};
+    var rotor = (P,a)=>Math.cos(a/2)+Math.sin(a/2)*P;
+    // var TransPtsAlongAxis = (x)=>{x.e013=x.e013+2; return x};
+        var TransPtsAlongAxis = (x)=>x + 2e013;
+    var sphere1=[...Array(n)].map((x,i)=>SphereSunflower(i,n));
+    var testpoint=Point(0.5,-0.5,0.4)
     
-  },{camera,animate:true,gl:true,grid:true,height:"55%",width:"45%"}    
-));
+    var sphere1Colors = chroma.scale(['#fafa6e','#2A4858'])
+    .mode('lch').colors(n,'num');
+    var sphere1Result= sphere1Colors.reduce((r, a,i,sphere1Colors) => r.concat(a, sphere1[i]),[]);
+    
+    var sphere2=[...Array(n)].map((x,i)=>SphereSunflower(i,n)).map((x)=>TransPtsAlongAxis(x));
+    // var sphere2=[...Array(n)].map((x,i)=>SphereSunflower(i,n)).map((x,i)=>TransPtsAlongAxis(x));
+    var sphere2Colors = chroma.scale(['#fa1459','#5900ff'])
+    .mode('lch').colors(n,'num');
+    var sphere2Result= sphere2Colors.reduce((r, a,i,sphere2Colors) => r.concat(a, sphere2[i]),[]);
+    
+    
+    var cameraPOV=0,
+        cameraSetLoc=Math.cos(cameraPOV)+Math.sin(cameraPOV)*1e13,
+        counter=0;
+        
+    var origPoint=Point(0,0,0),
+      xAxisPosPoint=Point(1,0,0),
+      yAxisPosPoint=Point(0,1,0),
+      zAxisPosPoint=Point(0,0,1),
+      testAxisLine=Point(0,2,0)&Point(2,2,0),
+      xAxisLine=LineFromPoints(origPoint,xAxisPosPoint),
+      xAxisLineInf=origPoint&xAxisPosPoint,
+      yAxisLine=LineFromPoints(origPoint,yAxisPosPoint),
+      zAxisLine=LineFromPoints(origPoint,zAxisPosPoint);
+    var rotor = (line,angle)=>Math.cos(angle/2) + Math.sin(angle/2)*line.Normalized;
+    var translator = (line,distance)=>1+0.5*distance*(line.Normalized*1e012);
+    // var tr = ()=>translator(l,0.5*Math.sin(performance.now()*0.001));
+    document.getElementById("animatedGraph").appendChild(this.graph(()=>{
+      var time=performance.now()/10000; 
+      counter+=(slider1.noUiSlider.get()/50)**2;
+      cameraPOV=counter/120.0;
+      //*(slider1.noUiSlider.get()/100)
+      cameraSetLoc=Math.cos(cameraPOV)+Math.sin(cameraPOV)*1e13;
+      // var mag=-1;
+      // cameraSetLoc.e13=cameraSetLoc.e13+mag;
+      slider1.noUiSlider.get()/100;
+      
+      cameraSetLoc.e01=slider2.noUiSlider.get();
+      cameraSetLoc.e02=slider3.noUiSlider.get();
+      cameraSetLoc.e03=slider4.noUiSlider.get();
+      cameraSetLoc.e12=slider5.noUiSlider.get();
+      cameraSetLoc.e23=slider6.noUiSlider.get();
+      cameraSetLoc.e1=slider7.noUiSlider.get();
+      cameraSetLoc.e2=slider8.noUiSlider.get();
+      cameraSetLoc.e3=slider9.noUiSlider.get();
+      cameraSetLoc=cameraSetLoc;
+      camera.set(cameraSetLoc)
+       slider1.noUiSlider.on('slide')
+      document.getElementById("debugDetails1").innerHTML ="Camera POV Coords:";
+      document.getElementById("debugDetails2").innerHTML =cameraSetLoc.s.toFixed(2)
+        +' + '+cameraSetLoc.e13.toFixed(2)+'e13'
+        + ' + ' + cameraSetLoc.e01.toFixed(2)+'e01'
+        + ' + ' + cameraSetLoc.e02.toFixed(2)+'e02'
+        + ' + ' + cameraSetLoc.e03.toFixed(2)+'e03'
+        + ' + ' + cameraSetLoc.e12.toFixed(2)+'e12'
+        + ' + ' + cameraSetLoc.e23.toFixed(2)+'e23'
+        + ' + ' + cameraSetLoc.e1.toFixed(2)+'e1'
+        + ' + ' + cameraSetLoc.e2.toFixed(2)+'e2'
+        + ' + ' + cameraSetLoc.e3.toFixed(2)+'e3';
+      //   Object.keys(sphere1).forEach(function(key) {
+      // 
+      // document.getElementById("debugDetails2").innerHTML =typeof sphere1;
+      // [...sphere2].map(x=>translator(zAxisPosPoint&yAxisPosPoint,Math.sin(time*5))>>>x)
+      // sphere2.map(x=>translator(testpoint&origin,Math.sin(time*5))>>>x
+      //   });
+      var D=rotor(origPoint&xAxisPosPoint,time*10)>>>Point(0,2,0);
+      testAxisLine=D&(D+1e012)
+        // sphere2Result.forEach(function (item, key) {
+        //   (Number(key) % 2===0 ? 
+            // document.getElementById("debugDetails1").innerHTML = D;
+        //      sphere2Result[key]=rotor(testAxisLine,time)>>>sphere2Result[key])
+        //   document.getElementById("debugDetails2").innerHTML =item
+        // //   // sphere2[key].apply(x=>translator(zAxisPosPoint&yAxisPosPoint,Math.sin(time*5))>>>x);
+        // });
+        // [...sphere2].map(x=>translator(A&B,Math.sin(time*5))>>>x)
+        // sphere2.forEach(rotor(Point(0,2,0),performance.now()/400))
+        // sphere2.map(x=>translator(testpoint&origin,Math.sin(time*5))>>>x);
+      return [...sphere1Result,...sphere2Result.map((x,i)=>( i%2 ===0 ?
+      x : 
+      // x+D))
+      rotor(testAxisLine,time*10)*rotor(xAxisLineInf,time*10)>>>x))
+      // rotor(testAxisLine,time*10)>>>x))
+      // rotor(Point(0,0,0)&Point(2,0,0)),time*10)>>>x))
+      ,0x000000,origPoint,'origin',0xFF0000,xAxisPosPoint,
+      'x-axis', xAxisLine,0x0F3BFF,yAxisPosPoint,'y-axis',yAxisLine,0xFF8614,zAxisPosPoint,
+      'z-axis',zAxisLine,0x000000,D,'Centroid']
+      
+    },{camera,animate:true,gl:true,grid:true,height:"55%",width:"45%"}    
+  ));
 
-});
+  });
 
 
-</SCRIPT>
+  </script>
 
 </BODY>
+</html>
